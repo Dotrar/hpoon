@@ -17,11 +17,11 @@ to be letters only; if stripping occurs, will print out the name
 
     # in a different shell (ie: tmux)
     cd /new/abs/dir     # totally different dir
-    cp * ` + "`hpoon`" + `      # copy files over to the last harpooned dir   
+    cp * `hpoon`      # copy files over to the last harpooned dir   
     
     # works on deleted files
     hpoon filename myfile           #harpoon a file with "myfile"
     rm filename
     cd /somewhere/else/entirely
-    mv that_file ` + "`hpoon @myfile`" + `  # result: mv that_file /original/path/filename
+    mv some_file `hpoon @myfile` # result: mv that_file /original/path/filename
 `
