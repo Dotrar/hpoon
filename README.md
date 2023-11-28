@@ -1,2 +1,27 @@
 # hpoon
-harpoon like functionality in the terminal
+Harpoon like functionality in the terminal
+
+## Usage:
+    hpoon [dir] [opt-name]  | store a mark, optionally with a name
+    hpoon                   | retreive the last marked file or dir
+    hpoon @[name]           | retreive marked file with name
+
+can only mark files and directories that exist, but can retreive
+marks that no longer exist on the filesystem. Names will be stripped
+to be letters only; if stripping occurs, will print out the name
+
+## Examples:
+
+    cd /path/to/dir     # cd to a dir
+    hpoon .             # harpoon it
+
+    # in a different shell (ie: tmux)
+    cd /new/abs/dir     # totally different dir
+    cp * ` + "`hpoon`" + `      # copy files over to the last harpooned dir   
+    
+    # works on deleted files
+    hpoon filename myfile           #harpoon a file with "myfile"
+    rm filename
+    cd /somewhere/else/entirely
+    mv that_file ` + "`hpoon @myfile`" + `  # result: mv that_file /original/path/filename
+`
