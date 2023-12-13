@@ -4,7 +4,8 @@ Harpoon like functionality in the terminal
 ## Usage:
     hpoon [dir] [opt-name]  | store a mark, optionally with a name
     hpoon                   | retrieve the last marked file or dir
-    hpoon @[name]           | retrieve marked file with name
+    hpoon clean             | remove all hpoon history
+    hpoon !<name>           | retrieve marked file with name (mark is recognized by prefix "!")
 
 Can only mark files and directories that exist, but can retrieve
 marks that no longer exist on the filesystem. Names will be stripped

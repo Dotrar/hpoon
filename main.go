@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"runtime"
 	"strings"
 )
 
@@ -15,8 +16,8 @@ hpoon: Harpoon for the shell
 
 Usage:
     hpoon [dir] [opt-name]  | store a mark, optionally with a name
-    hpoon                   | retreive the last marked file or dir
-    hpoon @[name]           | retreive marked file with name
+    hpoon                   | retrieve the last marked file or dir
+    hpoon !<name>           | retrieve marked file with name (mark is recognized by prefix "!")
 
     can only mark files and directories that exist, but can retreive
     marks that no longer exist on the filesystem. Names will be stripped
@@ -40,12 +41,22 @@ Examples:
 
 const short_help = "Unsure arg, try -h to get usage information"
 
-const LAST_MARKED_KEY = "_"
-const KV_SEPERATOR = "/"
-const NAME_REF = "@"
-const HPOON_FILE = "/tmp/hpoon"
+const (
+	LAST_MARKED_KEY = "_"
+	KV_SEPERATOR    = "/"
+	NAME_REF        = "!"
+)
 
 var non_letters = regexp.MustCompile(`[^\p{L}]+`)
+
+func getHpoonFile() string {
+	switch runtime.GOOS {
+	case "windows":
+		return "C:\\Windows\\Temp\\hpoon"
+	default:
+		return "/tmp/hpoon"
+	}
+}
 
 func quit(msg string, printargs ...any) {
 	fmt.Printf(msg+"\n", printargs...)
@@ -169,14 +180,15 @@ func write_hpoon_file(data HarpoonRecord, filename string) {
 }
 
 func load_hpoon() HarpoonRecord {
-	if !check_path_exists(HPOON_FILE) {
-		os.Create(HPOON_FILE)
+	hpoon_file := getHpoonFile()
+	if !check_path_exists(hpoon_file) {
+		os.Create(hpoon_file)
 	}
 
-	return read_hpoon_file(HPOON_FILE)
+	return read_hpoon_file(hpoon_file)
 }
 func save_hpoon(data HarpoonRecord) {
-	write_hpoon_file(data, HPOON_FILE)
+	write_hpoon_file(data, getHpoonFile())
 }
 
 func run_no_arg() {
@@ -225,7 +237,7 @@ func hpoon_out_mark_at(arg string) {
 }
 
 func hpoon_clean() {
-	os.Remove(HPOON_FILE)
+	os.Remove(getHpoonFile())
 }
 
 func run_single_arg(arg string) {
