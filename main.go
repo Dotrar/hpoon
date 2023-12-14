@@ -15,9 +15,10 @@ const help_str = `
 hpoon: Harpoon for the shell
 
 Usage:
-    hpoon [dir] [opt-name]  | store a mark, optionally with a name
+    hpoon <dir> [name]      | store a mark, optionally with a name
     hpoon                   | retrieve the last marked file or dir
     hpoon !<name>           | retrieve marked file with name (mark is recognized by prefix "!")
+    hpoon clean             | delete all hpoon history
 
     can only mark files and directories that exist, but can retreive
     marks that no longer exist on the filesystem. Names will be stripped
