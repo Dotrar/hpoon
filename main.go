@@ -19,8 +19,7 @@ Usage:
     hpoon @[name]           | retreive marked file with name
 
     can only mark files and directories that exist, but can retreive
-    marks that no longer exist on the filesystem. Names will be stripped
-    to be letters only; if stripping occurs, will print out the name
+    marks that no longer exist on the filesystem
 
 Examples:
 
@@ -255,10 +254,6 @@ func run_single_arg(arg string) {
 	}
 }
 
-func clean_string(name string) string {
-	return non_letters.ReplaceAllString(name, "")
-}
-
 func run_double_arg(arg string, name string) {
 	path, err := filepath.Abs(arg)
 	if err != nil {
@@ -267,12 +262,7 @@ func run_double_arg(arg string, name string) {
 	if !check_path_exists(path) {
 		quit("Filepath doesn't exist: '%s'", path)
 	}
-	// if name has non-value letters, strip them and output
-	mark_name := clean_string(name)
-	if mark_name != name {
-		print(mark_name)
-	}
-	hpoon_set_mark(path, &mark_name)
+	hpoon_set_mark(path, &name)
 }
 
 func main() {

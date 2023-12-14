@@ -7,8 +7,7 @@ Harpoon like functionality in the terminal
     hpoon @[name]           | retrieve marked file with name
 
 Can only mark files and directories that exist, but can retrieve
-marks that no longer exist on the filesystem. Names will be stripped
-to be letters only; if stripping occurs, will print out the name
+marks that no longer exist on the filesystem
 
 ## Examples:
 
