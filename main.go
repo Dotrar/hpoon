@@ -207,20 +207,14 @@ func hpoon_get_mark(name *string) *string {
 	}
 	return &value
 }
-func get_name_ref(arg string) *string {
-	if strings.HasPrefix(arg, NAME_REF) {
-		name := arg[len(NAME_REF):]
-		return &name
-	}
-	return nil
-}
+
 func check_name_ref(arg string) bool {
 	return strings.HasPrefix(arg, NAME_REF)
 }
 
 func hpoon_out_mark_at(arg string) {
-	name := get_name_ref(arg)
-	data := hpoon_get_mark(name)
+	name := arg[len(NAME_REF):]
+	data := hpoon_get_mark(&name)
 	fmt.Print(*data)
 }
 
